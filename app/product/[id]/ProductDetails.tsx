@@ -1,41 +1,33 @@
 "use client";
 
+import { Product } from "@/app/types/product";
 import { useCart } from "@/app/context/CartContext";
 import Image from "next/image";
 
-interface ProductDetailsProps {
-  product: {
-    id: string;
-    title: string;
-    price: number;
-    image: string;
-  };
+interface Props {
+  product: Product;
 }
 
-export default function ProductDetails({ product }: ProductDetailsProps) {
+export default function ProductDetail({ product }: Props) {
   const { addToCart } = useCart();
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
       <div className="h-48 w-full mb-3 flex items-center justify-center overflow-hidden bg-gray-100 rounded-md">
         <Image
           src={product.image}
           alt={product.title}
-          width={400}
-          height={400}
           className="w-full h-full object-contain rounded-lg"
         />
       </div>
-      <div>
-        <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-        <p className="text-gray-600 mb-4 text-lg">${product.price}</p>
-        <button
-          onClick={() => addToCart(product)}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
-        >
-          Add to Cart
-        </button>
-      </div>
+      <p className="mb-4 font-semibold">${product.price}</p>
+      <button
+        onClick={() => addToCart(product)}
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
