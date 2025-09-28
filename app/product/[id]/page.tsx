@@ -2,11 +2,7 @@ import ProductDetail from "@/app/product/[id]/ProductDetails";
 import { products } from "@/app/data/product";
 import Navbar from "@/app/components/Navbar";
 
-interface PageParams {
-  id: string;
-}
-
-export default function ProductPage({ params }: { params: PageParams }) {
+export default function ProductPage({ params }: { params: { id: string } }) {
   const product = products.find((p) => p.id === params.id);
 
   if (!product) {
