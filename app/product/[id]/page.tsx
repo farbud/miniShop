@@ -5,10 +5,13 @@ import { products } from "@/app/data/product";
 import { useCart } from "@/app/context/CartContext";
 import Image from "next/image";
 
-type ProductPageProps = { params: { id: string } };
+interface ProductPageProps {
+  params: { id: string };
+}
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.id === params.id);
+  const { id } = params;
+  const product = products.find((p) => p.id === id);
   const { addToCart } = useCart();
 
   if (!product) return <div>Product not found</div>;
