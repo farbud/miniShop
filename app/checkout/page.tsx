@@ -10,8 +10,8 @@ import { CartItem } from "@/app/types/product";
 export default function CheckoutPage() {
   const {
     cart,
-    addToCart,
     removeFromCart,
+    clearCart,
     increaseQuantity,
     decreaseQuantity,
   } = useCart();
@@ -50,6 +50,7 @@ export default function CheckoutPage() {
     orders.push(newOrder);
     localStorage.setItem("orders", JSON.stringify(orders));
 
+    clearCart();
     router.push("/checkout/success");
   };
 
