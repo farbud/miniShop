@@ -1,5 +1,6 @@
 import ProductDetail from "@/app/product/[id]/ProductDetails";
 import { products } from "@/app/data/product";
+import Navbar from "@/app/components/Navbar";
 
 interface PageParams {
   id: string;
@@ -12,5 +13,10 @@ export default function ProductPage({ params }: { params: PageParams }) {
     return <div className="p-6 text-red-500">❌ Product not found</div>;
   }
 
-  return <ProductDetail product={product} />;
+  return (
+    <div>
+      <Navbar />
+      <ProductDetail product={product} />
+    </div>
+  );
 }
