@@ -4,7 +4,7 @@ import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 
 export default function CartPage() {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, removeFromCart } = useCart();
 
   if (cart.length === 0) {
     return (
@@ -44,13 +44,6 @@ export default function CartPage() {
       </div>
 
       <div className="mt-6 flex justify-between items-center">
-        <button
-          onClick={clearCart}
-          className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
-        >
-          Clear Cart
-        </button>
-
         <Link
           href="/"
           className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"

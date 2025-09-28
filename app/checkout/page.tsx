@@ -5,9 +5,16 @@ import Footer from "@/app/components/Footer";
 import { useCart } from "@/app/context/CartContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CartItem } from "@/app/types/product";
 
 export default function CheckoutPage() {
-  const { cart, addToCart, removeFromCart, clearCart } = useCart();
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useCart();
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -18,20 +25,17 @@ export default function CheckoutPage() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
-    // اعتبارسنجی ساده
     if (!name || !email || !address || !phone) {
       alert("Please fill all fields!");
       return;
     }
 
-    // اعتبارسنجی ایمیل
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Please enter a valid email address!");
       return;
     }
 
-    // ذخیره سفارش در localStorage
     const orders = JSON.parse(localStorage.getItem("orders") || "[]");
     const newOrder = {
       id: Date.now(),
@@ -46,8 +50,6 @@ export default function CheckoutPage() {
     orders.push(newOrder);
     localStorage.setItem("orders", JSON.stringify(orders));
 
-    // پاک کردن سبد خرید و هدایت به صفحه Success
-    clearCart();
     router.push("/checkout/success");
   };
 
@@ -72,7 +74,7 @@ export default function CheckoutPage() {
 
         {/* Cart Items */}
         <div className="space-y-4 mb-8">
-          {cart.map((item) => (
+          {cart.map((item: CartItem) => (
             <div
               key={item.id}
               className="flex flex-col sm:flex-row justify-between items-center border-b pb-2"
@@ -86,23 +88,23 @@ export default function CheckoutPage() {
 
               <div className="flex items-center gap-2 mt-2 sm:mt-0">
                 <button
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => decreaseQuantity(item.id)}
                   className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                 >
                   -
                 </button>
                 <span>{item.quantity}</span>
                 <button
-                  onClick={() =>
-                    addToCart({
-                      id: item.id,
-                      title: item.title,
-                      price: item.price,
-                    })
-                  }
+                  onClick={() => increaseQuantity(item.id)}
                   className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
                 >
                   +
+                </button>
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="px-2 py-1 bg-gray-400 text-white rounded hover:bg-gray-500 transition"
+                >
+                  Delete
                 </button>
               </div>
 
