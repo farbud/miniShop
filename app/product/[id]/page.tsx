@@ -1,5 +1,5 @@
 import Navbar from "@/app/components/Navbar";
-import ProductDetail from "./ProductDetails";
+import ProductDetails from "@/app/product/[id]/ProductDetails";
 import { products } from "@/app/data/product";
 
 type ProductPageProps = {
@@ -19,7 +19,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   return (
     <div>
       <Navbar />
-      <ProductDetail product={product} />
+      <ProductDetails product={product} />
     </div>
   );
 }
