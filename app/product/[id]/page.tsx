@@ -2,12 +2,13 @@ import ProductDetail from "@/app/product/[id]/ProductDetails";
 import { products } from "@/app/data/product";
 import Navbar from "@/app/components/Navbar";
 
-interface ProductPageProps {
+type ProductPageProps = {
   params: { id: string };
-}
+};
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.id === params.id);
+  const { id } = params;
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     return <div className="p-6 text-red-500">❌ Product not found</div>;
