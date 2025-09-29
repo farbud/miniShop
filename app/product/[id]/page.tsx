@@ -1,9 +1,11 @@
-import ProductDetail from "@/app/product/[id]/ProductDetails";
-import { products } from "@/app/data/product";
 import Navbar from "@/app/components/Navbar";
+import ProductDetail from "./ProductDetails";
+import { products } from "@/app/data/product";
 
 type ProductPageProps = {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
@@ -23,7 +25,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 }
 
 export async function generateStaticParams() {
-  return products.map((product) => ({
-    id: product.id,
+  return products.map((prod) => ({
+    id: prod.id,
   }));
 }
