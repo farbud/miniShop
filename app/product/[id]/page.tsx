@@ -2,7 +2,11 @@ import ProductDetail from "@/app/product/[id]/ProductDetails";
 import { products } from "@/app/data/product";
 import Navbar from "@/app/components/Navbar";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+interface ProductPageProps {
+  params: { id: string };
+}
+
+export default function ProductPage({ params }: ProductPageProps) {
   const product = products.find((p) => p.id === params.id);
 
   if (!product) {
@@ -15,4 +19,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
       <ProductDetail product={product} />
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  return products.map((product) => ({
+    id: product.id,
+  }));
 }
